@@ -1,0 +1,145 @@
+.notice-card-link {
+  text-decoration: none;
+}
+
+.notice-card-link:hover .card {
+  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+  transform: translateY(-3px);
+}
+
+.card-thumbnail {
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+  background-color: var(--light-gray);
+  border-radius: 8px 8px 0 0;
+  margin: -20px -20px 15px -20px;
+}
+
+.card-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-content {
+  position: relative;
+}
+
+.notice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  gap: 10px;
+}
+
+.notice-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary-black);
+  margin: 0;
+  flex: 1;
+  line-height: 1.3;
+}
+
+.notice-category {
+  font-size: 12px;
+  color: var(--secondary-black);
+  background-color: var(--light-gray);
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.notice-content {
+  color: var(--dark-gray);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.notice-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.small-tag {
+  display: inline-block;
+  background-color: var(--primary-yellow);
+  color: var(--primary-black);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.notice-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--secondary-black);
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--light-gray);
+}
+
+.notice-author {
+  font-weight: 600;
+  color: var(--primary-black);
+}
+
+.notice-date {
+  color: var(--dark-gray);
+}
+
+.notice-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--dark-gray);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.notice-views {
+  font-weight: 600;
+}
+
+.notice-department {
+  color: var(--primary-yellow);
+  font-weight: 600;
+}
+
+.notice-expiry {
+  color: var(--primary-red);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .card-thumbnail {
+    height: 120px;
+  }
+
+  .notice-title {
+    font-size: 16px;
+  }
+
+  .notice-content {
+    font-size: 13px;
+  }
+
+  .notice-footer {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
