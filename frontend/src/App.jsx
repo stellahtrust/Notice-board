@@ -14,6 +14,7 @@ import NoticeDetail from './pages/NoticeDetail';
 import AdminDashboard from './pages/AdminDashboard';
 import EditNotice from './pages/EditNotice';
 import UserProfile from './pages/UserProfile';
+import CreateAdmin from './pages/CreateAdmin';
 import SearchResults from './pages/SearchResults';
 import NotFound from './pages/NotFound';
 
@@ -54,12 +55,13 @@ function App() {
                 {/* AUTH ROUTES */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/create-admin" element={<CreateAdmin />} />
 
                 {/* PROTECTED ROUTES - FACULTY & ADMIN */}
                 <Route 
                   path="/create-notice" 
                   element={
-                    <ProtectedRoute requiredRole={['faculty', 'admin']}>
+                    <ProtectedRoute>
                       <CreateNotice />
                     </ProtectedRoute>
                   } 

@@ -35,8 +35,8 @@ export default function CreateNotice() {
   });
 
   useEffect(() => {
-    if (!user || (user.role !== 'admin' && user.role !== 'faculty')) {
-      navigate('/');
+    if (!user) {
+      navigate('/login');
       return;
     }
     fetchCategories();
@@ -107,23 +107,31 @@ const handleThumbnailChange = (e) => {
     setSuccess('');
 
     try {
-      const submitData = {
-        ...formData,
-        tags: formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag),
-        links: formData.links.split('\n').map(link => link.trim()).filter(link => link),
-        attachments: attachments.map(att => ({
-          name: att.name,
-          size: att.size,
-          type: att.type
-        }))
-      };
+      const submitForm = new FormData();
+      submitForm.append('title', formData.title);
+      submitForm.append('content', formData.content);
+      submitForm.append('category', formData.category);
+      submitForm.append('priority', formData.priority);
+      submitForm.append('visibility', formData.visibility);
+      if (formData.expiryDate) submitForm.append('expiryDate', formData.expiryDate);
+      submitForm.append('department', formData.department);
+      submitForm.append('contactEmail', formData.contactEmail);
+      submitForm.append('contactPhone', formData.contactPhone);
+      submitForm.append('comments', String(formData.comments));
+      submitForm.append('downloadOption', String(formData.downloadOption));
+      submitForm.append('tags', formData.tags);
+      submitForm.append('links', formData.links);
 
-      const response = await axios.post('/api/notices', submitData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      setSuccess('✅ Notice posted successfully! Awaiting admin approval.');
+      formData.targetAudience.forEach((audience) => submitForm.append('targetAudience', audience));
+      formData.displayLocation.forEach((location) => submitForm.append('displayLocation', location));
+
+      if (formData.thumbnailImage) {
+        submitForm.append('thumbnailImage', formData.thumbnailImage);
+      }
+      attachments.forEach((file) => submitForm.append('attachments', file));
+
+      const response = await axios.post('/api/notices', submitForm);
+      setSuccess('✅ Notice posted successfully! It is now live.');
       setTimeout(() => {
         navigate('/notices');
       }, 2000);

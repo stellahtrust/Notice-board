@@ -30,9 +30,7 @@ export default function Navbar() {
           ) : (
             <>
               <Link to="/notices" className="nav-link">Browse Notices</Link>
-              {(user.role === 'admin' || user.role === 'faculty') && (
-                <Link to="/create-notice" className="nav-link">✍️ Post Notice</Link>
-              )}
+              <Link to="/create-notice" className="nav-link">✍️ Post Notice</Link>
               {user.role === 'admin' && (
                 <Link to="/admin-dashboard" className="nav-link">⚙️ Admin Panel</Link>
               )}

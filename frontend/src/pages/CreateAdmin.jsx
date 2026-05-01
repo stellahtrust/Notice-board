@@ -95,7 +95,7 @@ export default function CreateAdmin() {
                 value={formData.adminSecret}
                 onChange={handleChange}
                 required
-                placeholder="admin123 (or your ADMIN_SECRET)"
+                placeholder="Enter admin secret key"
               />
             </div>
 

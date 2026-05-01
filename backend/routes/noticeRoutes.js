@@ -35,18 +35,15 @@ router.get('/', async (req, res) => {
 });
 
 /**
- * Create notice (Faculty/Admin only)
+ * Create notice (Authenticated users)
  * Fixes:
  * - normalize fields that sometimes arrive as arrays (from multipart parsing / form encoding)
  * - set required authorName from User.name (JWT only provides userId+role)
  * - coerce invalid expiryDate into null
+ * - auto-approve notices so admin approval is no longer required
  */
 router.post('/', auth, uploadMiddleware.processUploads, async (req, res) => {
   try {
-    if (!['admin', 'faculty'].includes(req.user.role)) {
-      return res.status(403).json({ error: 'Not authorized' });
-    }
-
     const first = (v) => (Array.isArray(v) ? v[0] : v);
 
     let {
@@ -91,7 +88,7 @@ router.post('/', auth, uploadMiddleware.processUploads, async (req, res) => {
       authorName: authorNameValue,
       thumbnailImage: thumbnailImage || null,
       attachments: Array.isArray(attachments) ? attachments : attachments ? [attachments] : [],
-      status: req.user.role === 'admin' ? 'approved' : 'pending_approval',
+      status: 'approved',
     });
 
     await notice.save();

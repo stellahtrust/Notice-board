@@ -103,6 +103,9 @@ export default function Login() {
           <p className="auth-link">
             Don't have an account? <Link to="/register">Register here</Link>
           </p>
+          <p className="auth-link">
+            Need an admin account? <Link to="/create-admin">Create one here</Link>
+          </p>
         </div>
       </div>
     </div>
