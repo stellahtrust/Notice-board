@@ -8,7 +8,14 @@ const router = express.Router();
 // Register
 router.post('/register', [
   body('name').notEmpty(),
-  body('email').isEmail(),
+  body('email').isEmail().custom((value, { req }) => {
+    if (req.body.role === 'student') {
+      if (!value.endsWith('@stud.umu.ac.ug')) {
+        throw new Error('Students must register with a @stud.umu.ac.ug email address');
+      }
+    }
+    return true;
+  }),
   body('password').isLength({ min: 6 }),
   body('role').isIn(['admin', 'faculty', 'student', 'public'])
 ], async (req, res) => {
@@ -68,6 +75,11 @@ router.post('/login', [
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ error: 'Invalid credentials' });
+    }
+
+    // Verify student email domain
+    if (user.role === 'student' && !email.endsWith('@stud.umu.ac.ug')) {
+      return res.status(403).json({ error: 'Students must use a @stud.umu.ac.ug email address' });
     }
 
     const isMatch = await user.comparePassword(password);
